@@ -20,18 +20,30 @@ module.exports = class SIMLCompiler
   extension: 'siml'
   
   constructor: (config) ->
+    @templates = []
     @public = config.paths.public
-    @outFile = (Object.keys config.files.templates.joinTo)[0] or "templates.js"
+    @outFile = (Object.keys config.files.templates.joinTo)[0] or 'templates.js'
     @rootDir = config.files.templates.joinTo[@outFile]
     @createRouter = !!config.plugins?.siml?.createRouter
     @routerOptions = config.plugins?.siml?.routerOptions
     @templateModuleName = config.plugins?.siml?.moduleName or 'templates'
   
-  # Basically does nothing except test compilation and throw an error if compilation fails
+  # Compiles all the templates and stores the data in @templates
   compile: (data, path, callback) ->
     
     try
+      
       content = siml.angular.parse data, { pretty: no }
+      
+      path = path.replace @rootDir, ''
+      path_hunks = path.split sysPath.sep
+      name = path_hunks.pop()[...-@extension.length-1]
+      path_hunks.push name
+      
+      @templates.push
+        name: name
+        content: content
+        path: sysPath.join.apply this, path_hunks
       
     catch e
       error = "Error: #{e.message}"
@@ -43,42 +55,15 @@ module.exports = class SIMLCompiler
     finally
       callback error, ''
   
-  # compile all .siml files and write them to the public folder
-  onCompile: (compiled) ->
+  # Writes all the compiled templates to the AngularJS module and possibly contructs the router
+  onCompile: (generated_files) ->
     
-    templates = @getTemplates compiled
+    router_module = if @createRouter then '\n' + @getRouterModule(@templates) or '' else ''
+    template_module = @getTemplateModule @templates
     
-    router_module = if @createRouter then @getRouterModule(templates) or '' else ''
-    template_module = @getTemplateModule templates
-    
-    write "#{@public}#{sysPath.sep}#{@outFile}", "#{template_module}\n#{router_module}", yes
+    write "#{@public}#{sysPath.sep}#{@outFile}", template_module + router_module, yes
   
-  # Reads and compiles the SMIL files
-  # Returns an array of objects with 'path' and 'content' values
-  getTemplates: (compiled) ->
-    
-    templates = []
-    files = (result.sourceFiles for result in compiled when result.path is "#{@public}#{sysPath.sep}#{@outFile}")[0]
-    
-    for file in files when file.compilerName is 'SIMLCompiler'
-      
-      path = file.path.replace @rootDir, ''
-      
-      path_hunks = path.split sysPath.sep
-      
-      name = path_hunks.pop()[...-@extension.length-1]
-      
-      path_hunks.push name + '.html'
-      
-      data = fs.readFileSync file.path, 'utf8'
-      content = siml.angular.parse data, { pretty: no }
-      templates.push
-        name: name
-        content: content
-        path: sysPath.join.apply this, path_hunks
-    
-    templates
-    
+  # Generates the AngularJS template module
   getTemplateModule: (templates) ->
     
     content = ''
@@ -94,6 +79,7 @@ module.exports = class SIMLCompiler
       }])
     """
   
+  # Generates the AngularJS router module
   getRouterModule: (templates) ->
     
     content = ''

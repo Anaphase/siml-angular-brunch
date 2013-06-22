@@ -78,7 +78,7 @@ angular.module('router', [])
   }])
 ```
 
-See the example Brunch config.coffee above for details on configuring the router.
+See the [example Brunch config.coffee](#sample-brunch-configcoffee) above for details on configuring the router.
 
 ## License
 

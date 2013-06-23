@@ -1,10 +1,16 @@
-## siml-angular-brunch
+siml-angular-brunch
+===================
+
 Adds [SIML](https://github.com/padolsey/SIML) support to [Brunch](http://brunch.io), with an AngularJS flavor.
 
-## How It Works
+How It Works
+------------
+
 siml-angular-brunch searches the `templates.joinTo` directory and compiles any file with the `.siml` extension, excluding the assets directory. The compiled HTML is placed in an AngularJS module specified by `plugins.siml.moduleName`. Optionally, siml-angular-brunch can generate a simple AngularJS router with the compiled files. See below for details.
 
-## Usage
+Usage
+-----
+
 Install the plugin via npm with `npm install --save siml-angular-brunch`.
 
 Or, do manual install:
@@ -12,7 +18,9 @@ Or, do manual install:
 * Add `"siml-angular-brunch": "x.y.z"` to `package.json` of your Brunch app. Pick a plugin version that corresponds to your minor (y) Brunch version.
 * If you want to use git version of plugin, add `"siml-angular-brunch": "git+ssh://git@github.com:Anaphase/siml-angular-brunch.git"`.
 
-## Sample Brunch config.coffee
+Sample Brunch config.coffee
+---------------------------
+
 ```coffee-script
 exports.config =
   
@@ -44,7 +52,8 @@ exports.config =
         defualtRoute: '/home' # default: none
 ```
 
-## Optional Router Generation
+Optional Router Generation
+--------------------------
 If you set `plugins.siml.createRouter = yes`, then siml-angular-brunch will generate an additional module (specified by `plugins.siml.routerOptions.moduleName`) which contains a very simple AngularJS router for all of the compiled files. For example, this project structure:
 
 ```
@@ -80,7 +89,8 @@ angular.module('router', [])
 
 See the [example Brunch config.coffee](#sample-brunch-configcoffee) above for details on configuring the router.
 
-## License
+License
+-------
 
 The MIT License (MIT)
 

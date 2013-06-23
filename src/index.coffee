@@ -13,7 +13,7 @@ write = (path, content, append=no) ->
     else
       fs.writeFile path, content, (err) -> throw err if err?
 
-module.exports = class SIMLCompiler
+module.exports = class SIMLAngularBrunch
   
   brunchPlugin: yes
   type: 'template'

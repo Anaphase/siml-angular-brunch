@@ -73,6 +73,8 @@ module.exports = class SIMLAngularBrunch
       content += "\n    $templateCache.put('#{template.path}', '#{escaped_content}');"
     
     """
+    \n
+    // siml-angular-brunch templates
     angular.module('#{@templateModuleName}', [])
       .run(['$templateCache', function($templateCache) {
         #{content}
@@ -97,6 +99,8 @@ module.exports = class SIMLAngularBrunch
       content += "\n    $routeProvider.otherwise({ redirectTo: '#{@routerOptions.defaultRoute}' });"
     
     """
+    \n
+    // siml-angular-brunch router
     angular.module('#{@routerOptions.moduleName or 'router'}', [])
       .config(['$routeProvider', function($routeProvider) {
         #{content}

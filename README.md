@@ -49,7 +49,7 @@ exports.config =
       routerOptions:
         moduleName: 'app.router' # default: 'router'
         onlyUse: 'templates' # default: use all - only add .siml files that are in this directory to the router (usefull for when you have 'templates' and 'partials' directories)
-        defualtRoute: '/home' # default: none
+        defaultRoute: '/home' # default: none
 ```
 
 Optional Router Generation

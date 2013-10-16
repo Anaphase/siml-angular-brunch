@@ -61,30 +61,41 @@ module.exports = class SIMLAngularBrunch
     router_module = if @createRouter then '\n' + @getRouterModule(@templates) or '' else ''
     template_module = @getTemplateModule @templates
     
-    write "#{@public}#{sysPath.sep}#{@outFile}", template_module + router_module, yes
+    data =
+    """
+    \n
+    /* siml-angular-brunch start */
+    
+    #{template_module}
+    #{router_module}
+    
+    /* siml-angular-brunch end */
+    
+    """
+    
+    write @public + sysPath.sep + @outFile, data, yes
   
   # Generates the AngularJS template module
   getTemplateModule: (templates) ->
     
-    content = ''
+    content = []
     
     for template in templates
       escaped_content = template.content.replace(/'/g, "\\'")
-      content += "\n    $templateCache.put('#{template.path}', '#{escaped_content}');"
+      content.push "$templateCache.put('#{template.path}', '#{escaped_content}');"
     
     """
-    \n
     // siml-angular-brunch templates
     angular.module('#{@templateModuleName}', [])
       .run(['$templateCache', function($templateCache) {
-        #{content}
+        #{content.join '\n    '}
       }])
     """
   
   # Generates the AngularJS router module
   getRouterModule: (templates) ->
     
-    content = ''
+    content = []
     
     for template in templates
       
@@ -93,17 +104,16 @@ module.exports = class SIMLAngularBrunch
       route_name = template.path[template.path.indexOf(sysPath.sep, 1)..]
       controller_name = template.name[0].toUpperCase() + template.name[1..]
       
-      content += "\n    $routeProvider.when('#{route_name}', { controller: '#{controller_name}', templateUrl: '#{template.path}' });"
+      content.push "$routeProvider.when('#{route_name}', { controller: '#{controller_name}', templateUrl: '#{template.path}' });"
     
     if @routerOptions.defaultRoute?
-      content += "\n    $routeProvider.otherwise({ redirectTo: '#{@routerOptions.defaultRoute}' });"
+      content.push "$routeProvider.otherwise({ redirectTo: '#{@routerOptions.defaultRoute}' });"
     
     """
-    \n
     // siml-angular-brunch router
     angular.module('#{@routerOptions.moduleName or 'router'}', [])
       .config(['$routeProvider', function($routeProvider) {
-        #{content}
+        #{content.join '\n    '}
       }])
     """
     

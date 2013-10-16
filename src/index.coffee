@@ -39,11 +39,11 @@ module.exports = class SIMLAngularBrunch
       path_hunks = path.split sysPath.sep
       name = path_hunks.pop()[...-@extension.length-1]
       path_hunks.push name
+      path = sysPath.join.apply this, path_hunks
       
-      @templates.push
+      @templates[path] = 
         name: name
         content: content
-        path: sysPath.join.apply this, path_hunks
       
     catch e
       error = "Error: #{e.message}"
@@ -80,9 +80,9 @@ module.exports = class SIMLAngularBrunch
     
     content = []
     
-    for template in templates
+    for template_path, template of templates
       escaped_content = template.content.replace(/'/g, "\\'")
-      content.push "$templateCache.put('#{template.path}', '#{escaped_content}');"
+      content.push "$templateCache.put('#{template_path}', '#{escaped_content}');"
     
     """
     // siml-angular-brunch templates
@@ -97,14 +97,14 @@ module.exports = class SIMLAngularBrunch
     
     content = []
     
-    for template in templates
+    for template_path, template of templates
       
-      continue unless @routerOptions.onlyUse? and template.path.indexOf(@routerOptions.onlyUse) is 0
+      continue unless @routerOptions.onlyUse? and template_path.indexOf(@routerOptions.onlyUse) is 0
       
-      route_name = template.path[template.path.indexOf(sysPath.sep, 1)..]
+      route_name = template_path[template_path.indexOf(sysPath.sep, 1)..]
       controller_name = template.name[0].toUpperCase() + template.name[1..]
       
-      content.push "$routeProvider.when('#{route_name}', { controller: '#{controller_name}', templateUrl: '#{template.path}' });"
+      content.push "$routeProvider.when('#{route_name}', { controller: '#{controller_name}', templateUrl: '#{template_path}' });"
     
     if @routerOptions.defaultRoute?
       content.push "$routeProvider.otherwise({ redirectTo: '#{@routerOptions.defaultRoute}' });"
@@ -116,4 +116,3 @@ module.exports = class SIMLAngularBrunch
         #{content.join '\n    '}
       }])
     """
-    

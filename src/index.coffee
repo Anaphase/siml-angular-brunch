@@ -90,8 +90,8 @@ module.exports = class SIMLAngularBrunch
       
       continue unless @routerOptions.onlyUse? and template.path.indexOf(@routerOptions.onlyUse) is 0
       
-      route_name = template.path[template.path.indexOf(sysPath.sep, 1)..][...-5]
-      controller_name = template.name[0].toUpperCase() + template.name[1..-1]
+      route_name = template.path[template.path.indexOf(sysPath.sep, 1)..]
+      controller_name = template.name[0].toUpperCase() + template.name[1..]
       
       content += "\n    $routeProvider.when('#{route_name}', { controller: '#{controller_name}', templateUrl: '#{template.path}' });"
     

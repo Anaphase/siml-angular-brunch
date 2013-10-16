@@ -1,3 +1,6 @@
+# siml-angular-brunch 1.0.4 (16 October 2013)
+* Fixes a bug where templates would be inserted into the $templateCache each time it was changed during a brunch watch
+
 # siml-angular-brunch 1.0.3 (08 October 2013)
 * Fixes a bug with auto-generated routers (no longer tries to remove file extension)
 

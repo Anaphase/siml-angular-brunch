@@ -1,3 +1,6 @@
+# siml-angular-brunch 1.0.5 (17 February 2014)
+* Changes optional auto-generated router to correctly convert snake-case-file-names to ClassCaseControllerNames
+
 # siml-angular-brunch 1.0.4 (16 October 2013)
 * Fixes a bug where templates would be inserted into the $templateCache each time it was changed during a brunch watch
 

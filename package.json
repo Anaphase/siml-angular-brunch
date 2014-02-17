@@ -1,6 +1,6 @@
 {
   "name": "siml-angular-brunch",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Adds SIML support to Brunch, with an AngularJS flavor.",
   "author": "Colin Wood",
   "homepage": "https://github.com/Anaphase/siml-angular-brunch",

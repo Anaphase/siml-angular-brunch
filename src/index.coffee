@@ -97,12 +97,16 @@ module.exports = class SIMLAngularBrunch
     
     content = []
     
+    # takes a snake-case-file-name and converts it to ClassCaseControllerName
+    snakeCaseToClassCase = (string) ->
+      string[0].toUpperCase() + string[1..].replace /\-(.{1})/g, (whole, matched) -> matched.toUpperCase()
+    
     for template_path, template of templates
       
       continue unless @routerOptions.onlyUse? and template_path.indexOf(@routerOptions.onlyUse) is 0
       
       route_name = template_path[template_path.indexOf(sysPath.sep, 1)..]
-      controller_name = template.name[0].toUpperCase() + template.name[1..]
+      controller_name = snakeCaseToClassCase template.name
       
       content.push "$routeProvider.when('#{route_name}', { controller: '#{controller_name}', templateUrl: '#{template_path}' });"
     

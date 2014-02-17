@@ -13,10 +13,10 @@
     "prepublish": "rm -rf lib && node_modules/.bin/coffee --bare --output lib/ src/"
   },
   "dependencies": {
-    "siml": "~0.3.6",
-    "mkdirp": "~0.3.5"
+    "siml": "latest",
+    "mkdirp": "latest"
   },
   "devDependencies": {
-    "coffee-script": "~1.6.2"
+    "coffee-script": "latest"
   }
 }

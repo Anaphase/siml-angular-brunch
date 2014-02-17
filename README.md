@@ -81,9 +81,9 @@ will generate the following router module:
 ```javascript
 angular.module('router', [])
   .config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/home', { controller: 'Home', templateUrl: 'templates/home.html' });
-    $routeProvider.when('/products', { controller: 'Products', templateUrl: 'templates/products.html' });
-    $routeProvider.when('/contact', { controller: 'Contact', templateUrl: 'templates/contact.html' });
+    $routeProvider.when('/home', { controller: 'Home', templateUrl: 'templates/home' });
+    $routeProvider.when('/products', { controller: 'Products', templateUrl: 'templates/products' });
+    $routeProvider.when('/contact', { controller: 'Contact', templateUrl: 'templates/contact' });
   }])
 ```
 

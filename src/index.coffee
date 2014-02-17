@@ -62,16 +62,16 @@ module.exports = class SIMLAngularBrunch
     template_module = @getTemplateModule @templates
     
     data =
-    """
-    \n
-    /* siml-angular-brunch start */
-    
-    #{template_module}
-    #{router_module}
-    
-    /* siml-angular-brunch end */
-    
-    """
+      """
+      \n
+      /* siml-angular-brunch start */
+      
+      #{template_module}
+      #{router_module}
+      
+      /* siml-angular-brunch end */
+      
+      """
     
     write @public + sysPath.sep + @outFile, data, yes
   

@@ -23,27 +23,29 @@ Sample Brunch config.coffee
 
 ```coffee-script
 exports.config =
-  
+
   framework: 'AngularJS'
-  
+
   modules:
     wrapper: no
     definition: no
-  
+
   files:
-    
+
     # other config stuff here
-    
+
     templates:
       defaultExtension: 'siml'
       joinTo:
         'js/app.js' : /^app/ # search entire app directory for .siml files and place AngularJS module in js/app.js
-  
+
   # you can customize smil-angular-brunch here
   plugins:
     siml:
       moduleName: 'app.templates' # default: 'templates' - all .siml files will be compiled into an AngularJS module named <moduleName> in the templates.joinTo file
-      
+      templatePrefix: 'template.prefix' # default: '' - all $templateCache template names will be prefixed with this
+      templatePathSeparator: '.' # default: '/' - the path separator for template names in $templateCache
+
       # optional router config
       createRouter: yes # default: no - generate a router module based on the compiled files
       routerOptions:

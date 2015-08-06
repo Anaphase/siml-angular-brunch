@@ -1,3 +1,6 @@
+# siml-angular-brunch 1.1.0 (6 August 2015)
+* Adds templatePrefix and templatePathSeparator configuration options.
+
 # siml-angular-brunch 1.0.5 (17 February 2014)
 * Changes optional auto-generated router to correctly convert snake-case-file-names to ClassCaseControllerNames
 

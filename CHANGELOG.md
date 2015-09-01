@@ -1,3 +1,6 @@
+# siml-angular-brunch 1.1.1 (1 September 2015)
+* Fixes a bug that caused newlines to break templateCache string.
+
 # siml-angular-brunch 1.1.0 (6 August 2015)
 * Adds templatePrefix and templatePathSeparator configuration options.
 

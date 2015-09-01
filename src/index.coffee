@@ -86,6 +86,7 @@ module.exports = class SIMLAngularBrunch
     for template_path, template of templates
       template_path = prefix + template_path.replace(/\//g, @templatePathSeparator)
       escaped_content = template.content.replace(/'/g, "\\'")
+      escaped_content = template.content.replace(/\n/g, "\\n")
       content.push "$templateCache.put('#{template_path}', '#{escaped_content}');"
 
     """

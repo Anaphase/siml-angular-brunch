@@ -1,3 +1,7 @@
+# siml-angular-brunch 2.0.0 (12 May 2016)
+* Introduces version 2.0 which complies with Brunch's new plugin format.
+* Removes $templateCache injection and router generation features.
+
 # siml-angular-brunch 1.1.1 (1 September 2015)
 * Fixes a bug that caused newlines to break templateCache string.
 

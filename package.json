@@ -1,6 +1,6 @@
 {
   "name": "siml-angular-brunch",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Adds SIML support to Brunch, with an AngularJS flavor.",
   "author": "Colin Wood",
   "homepage": "https://github.com/Anaphase/siml-angular-brunch",
@@ -8,15 +8,8 @@
     "type": "git",
     "url": "git@github.com:Anaphase/siml-angular-brunch.git"
   },
-  "main": "./lib/index",
-  "scripts": {
-    "prepublish": "rm -rf lib && node_modules/.bin/coffee --bare --output lib/ src/"
-  },
+  "main": "index.js",
   "dependencies": {
-    "siml": "latest",
-    "mkdirp": "latest"
-  },
-  "devDependencies": {
-    "coffee-script": "latest"
+    "siml": "latest"
   }
 }
